@@ -1,0 +1,10 @@
+{% extends "pizzas/base.html" %}
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-3"> Welcome to Semi's Pizzeria </h1>
+            <p class="lead"> Come eat good food, my friend
+            </p>
+            <a class="btn btn-lg btn-outline-primary" href="{% url 'pizzas:pizzanames' %}"
+            role="button">Select Pizza &raquo;</a>
+</div>
+{% endblock content %}
