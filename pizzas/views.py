@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import *
 from django.contrib.auth.models import User
 from django.http import Http404
+from django.views.generic import DetailView
 from .forms import *
 
 # Create your views here.
@@ -34,3 +35,8 @@ def comment(request, pizzaname_id):
             return redirect('pizzas:pizzaname', pizzaname_id=pizzaname_id)
     context = {'form':form, 'pizza':pizza}
     return render(request, "pizzas/comment.html", context)
+
+class ImageDisplay(DetailView):
+    model = pizzaname
+    template_name = 'pizza_image_display.html'
+    context_object_name = Pizza

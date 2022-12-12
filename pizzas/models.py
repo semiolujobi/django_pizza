@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class Pizza(models.Model):
     pizza_name = models.CharField(max_length=100)
+    pizza_image = models.ImageField(null=True, blank=True, upload_to="images/")
     def __str__(self):
         return self.pizza_name
 

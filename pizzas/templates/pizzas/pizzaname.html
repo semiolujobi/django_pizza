@@ -14,7 +14,10 @@
     
     {% endfor %}
 </ul>
-    <a href = "{% url 'pizzas:comment' pizzaname.id %}" > Comment Below </a>
+<ul>
+    <img src="{{pizza.pizza_image.url}}" alt="Pizza pic", width="250" height="250">
+</ul>
+    <a href = "{% url 'pizzas:comment' pizzaname.id %}" > Comment Now </a>
 
 <ul>
 
