@@ -6,8 +6,8 @@ app_name = 'pizzas'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('profile', views.profile, name='profile'),
     path('pizzanames', views.pizzanames, name='pizzanames'),
-    path('pizzanames/<int:pizzaname_id>/', views.pizzaname, name='pizzaname'),
+    path('pizzaname/<int:pizzaname_id>/', views.pizzaname, name='pizzaname'),
+    path('comment/<int:pizzaname_id>/', views.comment, name='comment')
 ]   
 

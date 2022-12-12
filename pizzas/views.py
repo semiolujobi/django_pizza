@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import *
 from django.contrib.auth.models import User
 from django.http import Http404
+from .forms import *
 
 # Create your views here.
 def index(request):
@@ -12,11 +13,24 @@ def pizzanames(request):
     context = {'all_pizzas':pizzanames}
     return render(request, 'pizzas/pizzanames.html', context)
 
-def profile(request):
-    profile = Profile.objects.filter(user=request.user)
-
 def pizzaname(request, pizzaname_id):
-    pizzanames = Pizza.objects.get(id=pizzaname_id)
-    toppings = Topping.objects.filter(pizzaname=pizzaname)
-    context = {'pizzaname':pizzaname, 'toppings':toppings}
-    return render(request, 'pizzas/pizzanames.html', context)
+    p = Pizza.objects.get(id=pizzaname_id)
+    toppings = Topping.objects.filter(pizza=p)
+    comments = Comment.objects.filter(pizza=p)
+    context = {'pizzaname':p, 'toppings':toppings,'comments':comments}
+    return render(request, 'pizzas/pizzaname.html', context)
+
+def comment(request, pizzaname_id):
+    pizza = Pizza.objects.get(id=pizzaname_id)
+    if request.method != "POST":
+        form = CommentForm()
+    else:
+        print(request.POST)
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.pizza = pizza
+            comment.save()
+            return redirect('pizzas:pizzaname', pizzaname_id=pizzaname_id)
+    context = {'form':form, 'pizza':pizza}
+    return render(request, "pizzas/comment.html", context)
