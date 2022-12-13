@@ -36,7 +36,3 @@ def comment(request, pizzaname_id):
     context = {'form':form, 'pizza':pizza}
     return render(request, "pizzas/comment.html", context)
 
-class ImageDisplay(DetailView):
-    model = pizzaname
-    template_name = 'pizza_image_display.html'
-    context_object_name = Pizza
